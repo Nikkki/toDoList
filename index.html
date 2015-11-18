@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>ToDoList v0.4</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/normalize.css">
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>   -->
+</head>
+<body>
+	<div class="conteiner--toDoList">
+		<form  id="toDoList">
+			<input type="text" placeholder="Введите задачу" name="toDoList--task" id="toDoList--task" autofocus>
+			<input type="button" value="Добавить" id="toDoList--add" class="toDoList--button">
+			<input type="button" value="Убрать задания" id="toDoList--clear" class="toDoList--button">
+			<select name="" id="toDoList--prioritySelection">
+				<option value="high" class="toDoList--prioritySelection--option">Высокий приоритет</option>
+				<option value="middle" class="toDoList--prioritySelection--option" selected="">Средний приоритет</option>
+				<option value="low" class="toDoList--prioritySelection--option">Низкий приоритет</option>
+			</select>
+			<input type="button" value="Сортировать" id="toDoList--sort" class="toDoList--button">
+			<input type="button" value="Убрать сортировку" id="toDoList--removeSort" class="toDoList--button">
+
+			<ul id = "toDoList--tasks"></ul>
+		</form>
+		
+	</div>
+	<script src="js/underscore-min.js"></script>
+	<script id="taskListItem" type="text/template">
+		<li data-itemId="<%- id %>" data-priority="<%- priority %>" class="toDoList--tasks--item <%- priority %>" >
+			<input type="checkbox" id="<%- id %>" class="toDoList--checkbox">
+			<label for="<%- id %>"><%- title %></label>
+			<img src="img/close.png"/ class="btnClose">
+			<img src="img/edit.png"/ class="toDoList--btnEdit">
+		</li>
+	</script>
+
+	
+	<script src="js/localStor.js"></script>
+	<script src="js/toDoList.js"></script>
+</body>
+</html>
