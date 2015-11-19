@@ -15,12 +15,15 @@ ul, ol, li{
 }
 
 
-.btnClose, .toDoList--btnEdit{
+.btnClose, .toDoList--btnEdit, .toDoList--btnEdit--apply{
     margin: -2px 0 0 10px;
 	float: right;
    	cursor: pointer;
    	border-radius: 3px;
 	transition-duration: .3s;
+}
+.toDoList--btnEdit--apply{
+	margin: -1px 0 0 10px;
 }
 	.btnClose:hover{
 		box-shadow: 0 0 3px #000;

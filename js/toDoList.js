@@ -182,51 +182,89 @@
 	//---------------------------------------------------
 
 	// ------------TASK---EDITING------------------------
-	$('.toDoList--btnEdit').on('click', function (e) {	
-		$(e.target).closest('.toDoList--btnEdit').addClass('hidden');
+	
 
-		var label = $(e.target).siblings('label'),
-			li = $(e.target).closest('li'),
-			str = label.text();
-		console.log(str);
-		addInputText(str, li);
-		str = '';
-		label.text('');
+	$('.toDoList--btnEdit').on('click', function (e) {	
+		var btnEdit = $(e.target).closest('.toDoList--btnEdit');
+		var btnApply = $(e.target).siblings('.toDoList--btnEdit--apply'),
+			label = $(e.target).siblings('label');
+		btnEdit.hide(500);      
+		btnApply.show(500).removeClass('hidden');
+		label.attr('contenteditable','true');
 	});
 
-	var addInputText = function (val, place) {
-		$('<input type="text" class="toDoList--tasks--item--inputText">').val(val).appendTo(place);
-		$('<input type="button" value="Ok" class="toDoList--btnAddEdit">').appendTo(place);
-	}
-	addInputText();
-
-	$(document).on('click','.toDoList--btnAddEdit', function (e) {	
-		var	inputText = $(e.target).siblings('.toDoList--tasks--item--inputText'),
-			val = inputText.val(),
-			li = $(e.target).closest('li'),
+	$('.toDoList--btnEdit--apply').on('click', function (e) {	
+		var btnEdit = $(e.target).siblings('.toDoList--btnEdit'),
+			btnApply = $(e.target).closest('.toDoList--btnEdit--apply'),
 			label = $(e.target).siblings('label'),
-			editBtn = $(e.target).siblings	('.toDoList--btnEdit');
-		label.text(val).appendTo(li);
-		editBtn.removeClass('hidden');
-		$('.toDoList--tasks--item--inputText').remove();
-		$('.toDoList--btnAddEdit').remove();
-		
-		var key = localStorage.key('toDoList');
-		var jsonP = JSON.parse ( localStorage.getItem(key));
-		var id = li.attr('data-itemid');
-		console.log('id = ' + id);
+			li = $(e.target).closest('li'),
+			val = label.text(),
+			key = localStorage.key('toDoList'),
+			jsonP = JSON.parse ( localStorage.getItem(key)),
+			id = li.attr('data-itemid');
+
+		btnApply.hide(500);
+		btnEdit.show(500);      
+		label.attr('contenteditable','false');
+
+	//----------
 		if (jsonP != 0){
 		    var	lsLength = jsonP.length;
 		}
-
 		for(var i = 0; i < lsLength; i++){
 			if (id == jsonP[i].id){		
 				ToDo.tasks[i].title = val;
 			}
 		lclStorageSet( JSON.stringify(ToDo.tasks) );
 		};
-
 	});
+
+	// $('.toDoList--btnEdit').on('click', function (e) {	
+	// 	$(e.target).closest('.toDoList--btnEdit').addClass('hidden');
+
+	// 	var label = $(e.target).siblings('label'),
+	// 		li = $(e.target).closest('li'),
+	// 		str = label.text();
+	// 	console.log(str);
+	// 	addInputText(str, li);
+	// 	str = '';
+	// 	label.text('');
+	// });
+
+
+	// var addInputText = function (val, place) {
+	// 	$('<input type="text" class="toDoList--tasks--item--inputText">').val(val).appendTo(place);
+	// 	$('<input type="button" value="Ok" class="toDoList--btnAddEdit">').appendTo(place);
+	// }
+	// addInputText();
+
+	// $(document).on('click','.toDoList--btnAddEdit', function (e) {	
+	// 	var	inputText = $(e.target).siblings('.toDoList--tasks--item--inputText'),
+	// 		val = inputText.val(),
+	// 		li = $(e.target).closest('li'),
+	// 		label = $(e.target).siblings('label'),
+	// 		editBtn = $(e.target).siblings	('.toDoList--btnEdit');
+	// 	label.text(val).appendTo(li);
+	// 	editBtn.removeClass('hidden');
+	// 	$('.toDoList--tasks--item--inputText').remove();
+	// 	$('.toDoList--btnAddEdit').remove();
+		
+	// 	var key = localStorage.key('toDoList');
+	// 	var jsonP = JSON.parse ( localStorage.getItem(key));
+	// 	var id = li.attr('data-itemid');
+	// 	console.log('id = ' + id);
+	// 	if (jsonP != 0){
+	// 	    var	lsLength = jsonP.length;
+	// 	}
+
+	// 	for(var i = 0; i < lsLength; i++){
+	// 		if (id == jsonP[i].id){		
+	// 			ToDo.tasks[i].title = val;
+	// 		}
+	// 	lclStorageSet( JSON.stringify(ToDo.tasks) );
+	// 	};
+
+	// });
 
 	// -----------END EDITING TASK-----------------------
 

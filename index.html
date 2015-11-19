@@ -30,9 +30,10 @@
 	<script id="taskListItem" type="text/template">
 		<li data-itemId="<%- id %>" data-priority="<%- priority %>" class="toDoList--tasks--item <%- priority %>" >
 			<input type="checkbox" id="<%- id %>" class="toDoList--checkbox">
-			<label for="<%- id %>"><%- title %></label>
-			<img src="img/close.png"/ class="btnClose">
-			<img src="img/edit.png"/ class="toDoList--btnEdit">
+			<label contenteditable="false"><%- title %></label>
+			<img src="img/close.png" class="btnClose">
+			<img src="img/edit.png" class="toDoList--btnEdit">
+			<img src="img/confirm_3.png" class="toDoList--btnEdit--apply hidden">
 		</li>
 	</script>
 
