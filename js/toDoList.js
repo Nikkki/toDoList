@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 	var ToDo = ToDo || {};
 	ToDo.tasks = [];
@@ -10,8 +10,6 @@
 	};
 
 	var tdList = $('#toDoList--tasks'),
-		// checkbox1 = $('.toDoList--checkbox'),
-		button = $('#toDoList--add'),
 		tdMask = 'tdl_';
 
 	var valueInput = function() {
@@ -30,14 +28,6 @@
 		var taskItem = render(data);
 		$(taskItem).appendTo(tdList);
 	};
-
-	// var renderTaskEditInput = function (data) {
-	// 	render = _.template($('#taskEditInput').html());
-		
-	// 	var inputEdit = render(data);
-	// 	$(inputEdit).appendTo($('li [data-itemid = data]'));
-	// }
-
 
 	var addTask = function () {
 		if(valueInput().length > 0){
@@ -65,9 +55,7 @@
 	});
 
 	$('#toDoList--task').on('keydown', function(e){
-		if(e.keyCode != 17)
-			return;
-		addTask();
+		(e.keyCode === 13) ? addTask() : 0;
 	});
 
 
@@ -103,8 +91,8 @@
 	var showTasks = (function(){
 		var key = localStorage.key('toDoList');
 		var jsonP = JSON.parse ( localStorage.getItem(key) ) ;
-
-		if (jsonP != 0 && jsonP.length != null){   // QUESTION???
+		
+		if (jsonP && jsonP != 0 && jsonP.length != null){   // QUESTION???
 		    var	lsLength = jsonP.length;
 		
 			for( var i = 0; i < lsLength; i++){
@@ -129,6 +117,7 @@
 
 
 	$(document).on('click','.btnClose', function (e){
+		
 		var removeItem = $(e.target).closest('.toDoList--tasks--item');
 		removeItem.hide(500);
 		setTimeout(function () {  //убираеться блок из DOM 
@@ -153,7 +142,7 @@
 
 
 	//----------------- SORTING------------------
-	var sortTasks = (function(){	// добавление сортировки
+	(function(){	// добавление сортировки
 		$(document).on('click', '#toDoList--sort', function(){
 			var	val = $('.toDoList--prioritySelection--option:selected').attr('value');
 
@@ -170,7 +159,7 @@
 		});
 	}());
 
-		var removeSortTasks =  (function () {		//уборка сортировки
+		(function () {		//уборка сортировки
 			$('#toDoList--removeSort').on('click', function(){
 				tdList.children().each(function(index, el){	
 					$(el).show(500).removeClass('hidden');			
@@ -188,8 +177,8 @@
 		var btnEdit = $(e.target).closest('.toDoList--btnEdit');
 		var btnApply = $(e.target).siblings('.toDoList--btnEdit--apply'),
 			label = $(e.target).siblings('label');
-		btnEdit.hide(500);      
-		btnApply.show(500).removeClass('hidden');
+		btnEdit.hide(300);      
+		btnApply.show(300).removeClass('hidden');
 		label.attr('contenteditable','true');
 	});
 
@@ -218,53 +207,5 @@
 		lclStorageSet( JSON.stringify(ToDo.tasks) );
 		};
 	});
-
-	// $('.toDoList--btnEdit').on('click', function (e) {	
-	// 	$(e.target).closest('.toDoList--btnEdit').addClass('hidden');
-
-	// 	var label = $(e.target).siblings('label'),
-	// 		li = $(e.target).closest('li'),
-	// 		str = label.text();
-	// 	console.log(str);
-	// 	addInputText(str, li);
-	// 	str = '';
-	// 	label.text('');
-	// });
-
-
-	// var addInputText = function (val, place) {
-	// 	$('<input type="text" class="toDoList--tasks--item--inputText">').val(val).appendTo(place);
-	// 	$('<input type="button" value="Ok" class="toDoList--btnAddEdit">').appendTo(place);
-	// }
-	// addInputText();
-
-	// $(document).on('click','.toDoList--btnAddEdit', function (e) {	
-	// 	var	inputText = $(e.target).siblings('.toDoList--tasks--item--inputText'),
-	// 		val = inputText.val(),
-	// 		li = $(e.target).closest('li'),
-	// 		label = $(e.target).siblings('label'),
-	// 		editBtn = $(e.target).siblings	('.toDoList--btnEdit');
-	// 	label.text(val).appendTo(li);
-	// 	editBtn.removeClass('hidden');
-	// 	$('.toDoList--tasks--item--inputText').remove();
-	// 	$('.toDoList--btnAddEdit').remove();
-		
-	// 	var key = localStorage.key('toDoList');
-	// 	var jsonP = JSON.parse ( localStorage.getItem(key));
-	// 	var id = li.attr('data-itemid');
-	// 	console.log('id = ' + id);
-	// 	if (jsonP != 0){
-	// 	    var	lsLength = jsonP.length;
-	// 	}
-
-	// 	for(var i = 0; i < lsLength; i++){
-	// 		if (id == jsonP[i].id){		
-	// 			ToDo.tasks[i].title = val;
-	// 		}
-	// 	lclStorageSet( JSON.stringify(ToDo.tasks) );
-	// 	};
-
-	// });
-
 	// -----------END EDITING TASK-----------------------
 
